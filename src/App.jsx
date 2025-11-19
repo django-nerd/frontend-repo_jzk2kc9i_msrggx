@@ -1,70 +1,59 @@
+import { useRef } from 'react'
+import Hero from './components/Hero'
+import ProductGrid from './components/ProductGrid'
+import Process from './components/Process'
+import Footer from './components/Footer'
+
 function App() {
+  const shopRef = useRef(null)
+  const scrollToShop = () => {
+    document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-      {/* Subtle pattern overlay */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.05),transparent_50%)]"></div>
-
-      <div className="relative min-h-screen flex items-center justify-center p-8">
-        <div className="max-w-2xl w-full">
-          {/* Header with Flames icon */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center mb-6">
-              <img
-                src="/flame-icon.svg"
-                alt="Flames"
-                className="w-24 h-24 drop-shadow-[0_0_25px_rgba(59,130,246,0.5)]"
-              />
+    <div className="min-h-screen bg-gradient-to-br from-[#0a0412] via-[#140a24] to-[#0a0412]">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_10%,rgba(168,85,247,0.15),transparent_40%),radial-gradient(circle_at_90%_20%,rgba(249,115,22,0.12),transparent_40%)]" />
+      <div className="relative">
+        <header className="sticky top-0 z-30 backdrop-blur bg-black/30 border-b border-white/10">
+          <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded bg-gradient-to-br from-purple-500 to-orange-400" />
+              <span className="text-white font-semibold">The Arcane Lab</span>
             </div>
-
-            <h1 className="text-5xl font-bold text-white mb-4 tracking-tight">
-              Flames Blue
-            </h1>
-
-            <p className="text-xl text-blue-200 mb-6">
-              Build applications through conversation
-            </p>
+            <nav className="flex items-center gap-4 text-purple-100">
+              <a href="#shop" className="hover:text-orange-300">Shop</a>
+              <a href="#werkwijze" className="hover:text-orange-300">Werkwijze</a>
+              <a href="#contact" className="hover:text-orange-300">Contact</a>
+            </nav>
           </div>
+        </header>
 
-          {/* Instructions */}
-          <div className="bg-slate-800/50 backdrop-blur-sm border border-blue-500/20 rounded-2xl p-8 shadow-xl mb-6">
-            <div className="flex items-start gap-4 mb-6">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center font-bold">
-                1
+        <main>
+          <Hero onShopClick={scrollToShop} />
+          <ProductGrid ref={shopRef} />
+          <Process />
+
+          <section id="contact" className="max-w-6xl mx-auto px-6 py-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="p-6 rounded-xl bg-black/40 border border-white/10">
+                <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">Contact</h2>
+                <p className="text-purple-100">Mail: info@thearcanelab.nl</p>
+                <p className="text-purple-100">Instagram • TikTok</p>
+                <p className="text-purple-100">Adresgegevens (in te vullen)</p>
               </div>
-              <div>
-                <h3 className="font-semibold text-white mb-1">Describe your idea</h3>
-                <p className="text-blue-200/80 text-sm">Use the chat panel on the left to tell the AI what you want to build</p>
+              <div className="p-6 rounded-xl bg-black/40 border border-white/10">
+                <h3 className="text-white font-semibold mb-2">Nieuwsbrief</h3>
+                <p className="text-purple-100 text-sm mb-4">Ontvang updates over nieuwe producten en drops.</p>
+                <form onSubmit={(e) => e.preventDefault()} className="flex gap-3">
+                  <input className="flex-1 px-4 py-2 rounded-lg bg-black/40 border border-white/10 text-white placeholder-white/50" placeholder="E-mailadres" />
+                  <button className="px-4 py-2 rounded-lg bg-orange-500 hover:bg-orange-400 text-black font-semibold">Inschrijven</button>
+                </form>
               </div>
             </div>
+          </section>
+        </main>
 
-            <div className="flex items-start gap-4 mb-6">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center font-bold">
-                2
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-1">Watch it build</h3>
-                <p className="text-blue-200/80 text-sm">Your app will appear in this preview as the AI generates the code</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center font-bold">
-                3
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-1">Refine and iterate</h3>
-                <p className="text-blue-200/80 text-sm">Continue the conversation to add features and make changes</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Footer */}
-          <div className="text-center">
-            <p className="text-sm text-blue-300/60">
-              No coding required • Just describe what you want
-            </p>
-          </div>
-        </div>
+        <Footer />
       </div>
     </div>
   )
